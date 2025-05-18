@@ -66,9 +66,11 @@ public class Luma_HomePage {
 	@FindBy(xpath="//a[starts-with(@class,'product-ite')]")
 	List<WebElement> ProductNamesList;
 	
-	@FindBy(xpath="//strong[starts-with(@class,'product name product-item-name')]//child::a[contains(text(),'"+Radiant Tee+"')]")
-	WebElement ProductName;
-	
+	/*
+	 * @FindBy(
+	 * xpath="//strong[starts-with(@class,'product name product-item-name')]//child::a[contains(text(),'"
+	 * +Radiant Tee+"')]") WebElement ProductName;
+	 */	
 	@FindBy(xpath="//a[starts-with(text(),'Notes')]")
 	WebElement NotesLink;
 	
@@ -101,8 +103,17 @@ public class Luma_HomePage {
 		PageFactory.initElements(driver, this);
 	}
 	
-	public void Click(WebElement ele) {
-		ele.click();
+	public void clickOnSearch() {
+		SearchBox.click();
+	}
+	public void clickOnSignIn() {
+		SignInLink.click();
+	}
+	public void submitSearch() {
+		SearchBox.sendKeys(Keys.chord(Keys.ENTER));
+	}
+	public void sendTextToSearchBox(String str) {
+		SearchBox.sendKeys(str);
 	}
 	public boolean isWebElementDisplayed(WebElement ele) {
 		return ele.isDisplayed();
@@ -120,22 +131,31 @@ public class Luma_HomePage {
 		return flag;
 	}
 	
-	public boolean searchFeature(String InputProdcutName) throws InterruptedException{
+	public boolean searchFeature(String InputProdcutName)throws InterruptedException{
 		boolean flag=false;
 		SearchBox.sendKeys(InputProdcutName);
 		SearchBox.sendKeys(Keys.chord(Keys.ENTER));
 		Thread.sleep(3000);
+		if(ProductNamesList.size()>0) {
 		for(WebElement we:ProductNamesList) {
 			if(containsProduct(we.getText(),InputProdcutName)) {
 				flag=true;
 				break;
 			}
 		}
+		}
+		else {
+			try {
+			throw new Exception();
+			}
+			catch(Exception e) {
+				System.out.println("Given search has["+0+"] results");
+			}
+		}
 		return flag;
 	}
-	public void clickOnSignIn() {
-		SignInLink.click();
-	}
+	
+	
 	
 	public void addAnItemToTheCart(String ProductName) {
 		SearchBox.sendKeys(ProductName);

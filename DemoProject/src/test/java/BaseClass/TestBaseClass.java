@@ -61,6 +61,5 @@ public class TestBaseClass {
 		//TestBaseClass tb=new TestBaseClass() {
 			getProperties();
 	}
-	public void clickOn
-
+	
 }

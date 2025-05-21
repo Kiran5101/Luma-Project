@@ -46,7 +46,7 @@ public class HomePageSteps {
 	  // lumaPage.submitSearch();
 	   
 		fla=lumaPage.searchFeature("dfhfgj");
-	   Thread.sleep(3000);
+	  // Thread.sleep(3000);
 	}
 
 	@Then("user must be able to see the matched products on the screen")
